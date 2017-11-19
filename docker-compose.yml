@@ -1,0 +1,22 @@
+api:
+    restart: always
+    build: server
+    ports:
+    - "8000:5000"
+    volumes:
+    - "./server:/usr/src/app"
+    links:
+    - redis
+    - mongo
+    # Use Flask dev server to see logs in terminal
+    command: python api.py
+    # Or use gunicorn for prod-like setup
+    # command: gunicorn -w 2 -b :5000 api:app
+redis:
+    restart: always
+    # image: redis:3.0.4-32bit
+    image: redis:latest
+mongo:
+    restart: always
+    image: mongo:latest
+    # image: mongo:3.0.6
